@@ -12,16 +12,16 @@ bool byte_get_bit(byte chunk, byte bit_index);
 void byte_set_bit(byte& chunk, byte bit_index);
 void byte_reset_bit(byte& chunk, byte bit_index);
 
-struct bitfield {
+struct Bitfield {
 public:
-    bitfield(u64 capacity_bytes, byte* data): data(data), capacity_bytes(capacity_bytes) {
+    Bitfield(u64 capacity_bytes, byte* data): data(data), capacity_bytes(capacity_bytes) {
 	capacity_bits = capacity_bytes * 8;
 	free_data = false;
     }
-    ~bitfield() {
+    ~Bitfield() {
 	if(free_data) free(data);
     }
-    bitfield(u64 capacity_bits): capacity_bits(capacity_bits) {
+    Bitfield(u64 capacity_bits): capacity_bits(capacity_bits) {
 	capacity_bytes = ceil((float)capacity_bits / 8.f);
 	data = (byte*)malloc(capacity_bytes);
 	memset(data, 0, capacity_bytes);
